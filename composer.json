@@ -1,0 +1,23 @@
+{
+    "name": "friartuck6000/composer-dotenv-handler",
+    "description": "Manage your Dotenv configuration interactively",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kyle Tucker",
+            "email": "kyleatucker@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^2.2"
+    },
+    "require-dev": {
+        "composer/composer": "^1.0@beta"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Ft6k\\ComposerDotenv\\": "src/"
+        }
+    }
+}
