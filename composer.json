@@ -12,7 +12,8 @@
         "vlucas/phpdotenv": "^2.2"
     },
     "require-dev": {
-        "composer/composer": "^1.0@beta"
+        "composer/composer": "^1.0@beta",
+        "phpunit/phpunit": "^5.2"
     },
     "minimum-stability": "dev",
     "autoload": {
