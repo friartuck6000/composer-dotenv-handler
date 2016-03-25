@@ -95,7 +95,7 @@ class Processor
 
         foreach ($distParams as $key => $value) {
             if (!array_key_exists($key, $params)) {
-                if (!$this->io->isInteractive()) {
+                if ($this->io->isInteractive()) {
                     // If interactive, prompt for a value for the new key
                     $params[$key] = $this->io->ask(sprintf('<question>%s</question> (<comment>%s</comment>): ', $key, $value), $value);
                 } else {
