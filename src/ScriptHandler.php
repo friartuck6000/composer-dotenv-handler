@@ -24,8 +24,9 @@ class ScriptHandler
     {
         // Set default parameters
         $config = [
-            'file'      => '.env',
-            'dist-file' => '.env.dist',
+            'file'          => '.env',
+            'dist-file'     => '.env.dist',
+            'keep-outdated' => false,
         ];
 
         // Get composer extra config and merge if applicable
