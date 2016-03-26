@@ -39,15 +39,8 @@ class Processor
      *
      * @param  array  $config
      */
-    protected function processConfig(array $config)
+    protected function checkConfig(array $config)
     {
-        // Make sure keys exist first
-        if (!isset($config['file'])) {
-            throw new InvalidArgumentException('No dotenv file configured.');
-        } elseif (!isset($config['dist-file'])) {
-            throw new InvalidArgumentException('No dotenv distribution file configured.');
-        }
-
         $cwd = getcwd();
         $filePath = $cwd .'/'. $config['file'];
         $distFilePath = $cwd .'/'. $config['dist-file'];
@@ -72,7 +65,7 @@ class Processor
      */
     public function run()
     {
-        $this->processConfig($this->config);
+        $this->checkConfig($this->config);
 
         $distLoader = new ReadOnlyLoader($this->distFilePath);
         $distParams = $distLoader->load();

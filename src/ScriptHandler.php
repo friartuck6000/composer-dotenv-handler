@@ -3,6 +3,7 @@
 namespace Ft6k\ComposerDotenv;
 
 use Composer\Script\Event;
+use Ft6k\ComposerDotenv\Exception\InvalidArgumentException;
 
 /**
  * Script handler for processing dotenv parameters.
@@ -22,24 +23,37 @@ class ScriptHandler
      */
     public static function buildParameters(Event $event)
     {
-        // Set default parameters
-        $config = [
-            'file'          => '.env',
-            'dist-file'     => '.env.dist',
-            'keep-outdated' => false,
-        ];
-
-        // Get composer extra config and merge if applicable
         $extra = $event->getComposer()->getPackage()->getExtra();
-        if (isset($extra[self::CONFIG_KEY])) {
-            // Filter out any empty parameters before merging with defaults
-            $readConfig = array_filter($extra[self::CONFIG_KEY]);
-            $config = array_merge($config, $readConfig);
+        if (array_key_exists(self::CONFIG_KEY, $extra)) {
+            $config = self::processConfig($extra[self::CONFIG_KEY]);
+        } else {
+            $config = self::processConfig(null);
         }
 
         // Initialize and run processor
         $processor = new Processor($event->getIO(), $config);
 
         return $processor->run();
+    }
+
+    /**
+     * Process configuration.
+     *
+     * @param   mixed  $config
+     * @return  array
+     */
+    protected static function processConfig($config)
+    {
+        $defaults = [
+            'file'          => '.env',
+            'dist-file'     => '.env.dist',
+            'keep-outdated' => false,
+        ];
+
+        if ($config && !is_array($config)) {
+            throw new InvalidArgumentException(sprintf('The extra.%s parameter must be a configuration object.', self::CONFIG_KEY));
+        }
+
+        return array_merge($defaults, $config);
     }
 }
