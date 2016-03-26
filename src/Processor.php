@@ -32,14 +32,16 @@ class Processor
     {
         $this->io = $io;
         $this->config = $config;
+
+        $this->bootstrap($config);
     }
 
     /**
-     * Process the script configuration.
+     * Process the script configuration and prepare file paths.
      *
      * @param  array  $config
      */
-    protected function checkConfig(array $config)
+    protected function bootstrap(array $config)
     {
         $cwd = getcwd();
         $filePath = $cwd .'/'. $config['file'];
@@ -65,8 +67,6 @@ class Processor
      */
     public function run()
     {
-        $this->checkConfig($this->config);
-
         $distLoader = new ReadOnlyLoader($this->distFilePath);
         $distParams = $distLoader->load();
         
