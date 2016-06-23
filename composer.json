@@ -20,5 +20,8 @@
         "psr-4": {
             "Ft6k\\ComposerDotenv\\": "src/"
         }
+    },
+    "scripts": {
+        "self": ["Ft6k\\ComposerDotenv\\ScriptHandler::buildParameters"]
     }
 }
